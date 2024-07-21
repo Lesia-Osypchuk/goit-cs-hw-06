@@ -1,17 +1,14 @@
-# Use an official Python runtime as a parent image
+# Вибір базового образу
 FROM python:3.9-slim
 
-# Set the working directory
+# Встановлення необхідних пакетів
+RUN pip install aiohttp pymongo
+
+# Копіювання всіх файлів додатка до робочої директорії контейнера
+COPY . /app
+
+# Встановлення робочої директорії
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-ADD . /app
-
-# Install any needed packages specified in requirements.txt
-RUN pip install pymongo
-
-# Make port 3000 and 5000 available to the world outside this container
-EXPOSE 3000 5000
-
-# Run main.py when the container launches
+# Запуск веб-додатка
 CMD ["python", "main.py"]
